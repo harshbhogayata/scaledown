@@ -42,14 +42,14 @@ export function SummarizeRaceDemo({ compact = false }: { compact?: boolean }) {
   }
 
   return (
-    <div className="space-y-3">
-      <div className="flex flex-wrap gap-2">
+    <div className="w-full max-w-md space-y-5">
+      <div className="flex flex-wrap items-center gap-2">
         {FORMATS.map((f) => (
           <button
             key={f}
             type="button"
             onClick={() => setFormat(f)}
-            className={`rounded-md border px-2.5 py-1 text-xs font-medium transition-colors ${
+            className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors ${
               format === f
                 ? "border-primary bg-primary text-white"
                 : "border-border bg-white text-muted-foreground hover:bg-accent"
@@ -58,18 +58,18 @@ export function SummarizeRaceDemo({ compact = false }: { compact?: boolean }) {
             {f}
           </button>
         ))}
-        <Button size="sm" className="ml-auto" onClick={run} disabled={running}>
+        <Button size="default" className="ml-auto px-6 font-bold tracking-wide" onClick={run} disabled={running}>
           {running ? "Running…" : "Run"}
         </Button>
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-4">
         <RaceBar label="ScaleDown · 5,000 tok/s" progress={sdProgress} accent />
         <RaceBar label="GPT-4 baseline · ~800 tok/s" progress={gptProgress} />
       </div>
 
       {(done || compact) && (
-        <pre className="whitespace-pre-wrap rounded-md border border-border bg-sd-bg p-3 font-mono text-xs leading-relaxed text-foreground">
+        <pre className="whitespace-pre-wrap rounded-lg border border-border bg-white p-4 font-mono text-[13px] leading-relaxed text-foreground shadow-sm">
           {OUTPUTS[format]}
         </pre>
       )}
@@ -88,11 +88,11 @@ function RaceBar({
 }) {
   return (
     <div>
-      <div className="mb-1 flex justify-between text-[10px] text-muted-foreground">
+      <div className="mb-2 flex justify-between text-xs font-semibold tracking-tight text-muted-foreground">
         <span>{label}</span>
         <span className="font-mono">{Math.round(progress)}%</span>
       </div>
-      <div className="h-2 overflow-hidden rounded-full bg-muted">
+      <div className="h-2.5 w-full overflow-hidden rounded-full bg-border/50">
         <motion.div
           className={`h-full rounded-full ${accent ? "bg-primary" : "bg-sd-text-tertiary"}`}
           animate={{ width: `${progress}%` }}
