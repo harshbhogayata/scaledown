@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import { CompressSliderDemo } from "@/components/mocks/CompressSliderDemo";
 import { SummarizeRaceDemo } from "@/components/mocks/SummarizeRaceDemo";
@@ -18,6 +18,17 @@ const demos = {
   extract: ExtractHoverDemo,
   classify: ClassifyRouterDemo,
 } as const;
+
+const itemVariant: Variants = {
+  hidden: { opacity: 0, y: 30, scale: 0.95, filter: "blur(10px)" },
+  show: { 
+    opacity: 1, 
+    y: 0, 
+    scale: 1,
+    filter: "blur(0px)",
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+  }
+};
 
 export function BionicGridSection() {
   return (
@@ -85,17 +96,6 @@ export function BionicGridSection() {
               };
 
               const config = BENTO_CONFIG[product.slug as keyof typeof BENTO_CONFIG];
-              
-              const itemVariant = {
-                hidden: { opacity: 0, y: 30, scale: 0.95, filter: "blur(10px)" },
-                show: { 
-                  opacity: 1, 
-                  y: 0, 
-                  scale: 1,
-                  filter: "blur(0px)",
-                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
-                }
-              };
 
               return (
                 <React.Fragment key={product.slug}>
